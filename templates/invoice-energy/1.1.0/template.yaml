@@ -1,0 +1,52 @@
+manifestVersion: "1.0"
+id: invoice-energy
+version: "1.1.0"
+owner: billing-system
+shared: false
+engine: scriban
+engineVersion: "7.5.1"
+dataContract:
+  version: "1.0"
+  profile: header-items-v1
+  schema: schema.json
+outputs:
+  html:
+    parts:
+      documentStart: parts/document-start.html.sbn
+      row: parts/row.html.sbn
+      documentEnd: parts/document-end.html.sbn
+    styles: [parts/styles.css]
+  pdf:
+    paper: A4
+    orientation: portrait
+    marginMm: { top: 15, right: 12, bottom: 18, left: 12 }
+    chunkLayout: page-boundary
+    pageNumbering: global
+    pageTotals:
+      enabled: false
+    verification:
+      anchors:
+        header:
+          - "$.reportTitle"
+          - "$.customer.name"
+          - "$.customer.id"
+          - "$.currency"
+          - "$.totals.recordCount"
+          - "$.totals.amount"
+        item:
+          - "$.sequence"
+          - "$.description"
+          - "$.quantity"
+          - "$.unitPrice"
+          - "$.amount"
+  xlsx:
+    fallback: raw
+    columns:
+      - { path: sequence, type: integer }
+      - { path: description, type: string }
+      - { path: quantity, type: integer }
+      - { path: unitPrice, type: decimal }
+      - { path: amount, type: decimal }
+localeDefaults:
+  culture: es-AR
+  timeZone: America/Argentina/Buenos_Aires

@@ -1,0 +1,20 @@
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 18mm 12mm;
+}
+
+body {
+  margin: 0;
+  color: #222;
+  font-family: sans-serif;
+  font-size: 9pt;
+}
+
+table.items {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.items .num {
+  text-align: right;
+}
